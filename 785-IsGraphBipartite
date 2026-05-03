@@ -1,0 +1,32 @@
+// Last updated: 5/3/2026, 12:32:50 PM
+1class Solution {
+2public:
+3    bool checkBipartite(int node, vector<int>& color, vector<vector<int>> &graph, int c){
+4        color[node] = c;
+5        for(auto &v: graph[node]){
+6            if(!color[v]){
+7                if(!checkBipartite(v,color,graph,3-c)){
+8                    return false;
+9                }
+10            }else{
+11                if(color[v] == color[node]){
+12                    return false;
+13                }
+14            }
+15        }
+16        return true;
+17    }
+18    bool isBipartite(vector<vector<int>>& graph) {
+19        int n = graph.size();
+20        vector<int> color(n,0);
+21
+22        for(int i = 0; i<n; i++){
+23            if(!color[i]){
+24                if(!checkBipartite(i,color,graph,1)){
+25                    return false;
+26                }
+27            }
+28        }
+29        return true;
+30    }
+31};
